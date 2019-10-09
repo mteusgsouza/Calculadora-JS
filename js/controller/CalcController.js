@@ -125,6 +125,7 @@ class CalcController {
     }
 
     clearEntry() {
+        //limpa último item do array
         this._operation.pop();
         this.setLastNumberToDisplay();
     }
@@ -152,8 +153,16 @@ class CalcController {
     }
 
     getResult() {
-        // console.log("getResult", this._operation);
-        return eval(this._operation.join(""));
+        try {
+            console.log("resultado", eval(this._operation.join("")));
+            return eval(this._operation.join(""));
+
+        } catch (e) {
+            setTimeout(() => {
+                this.setError();
+            }, 1);
+            this.setError();
+        }
     }
 
     calc() {
@@ -355,6 +364,5 @@ class CalcController {
         }
 
         this._displayCalcEl.innerHTML = value;
-
     }
 }
